@@ -1,4 +1,4 @@
-public class Subtask extends Task {
+ public class Subtask extends Task {
     protected final int epicId;
 
 
@@ -18,8 +18,15 @@ public class Subtask extends Task {
     public int getEpicId() { return epicId; }
 
 
-    @Override
-    public  String toString() {
-        return "Sub{" + "epicId=" + epicId + "} " + super.toString();
-    }
+     @Override
+     public String getType() {
+         return "Subtask";
+     }
+
+     @Override
+     public String toString() {
+         return super.toString().replace("}", "") +
+                 ", epicId=" + epicId +
+                 '}';
+     }
 }

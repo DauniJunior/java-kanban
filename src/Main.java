@@ -58,6 +58,9 @@ public class Main {
         Subtask subtask1_2 = new Subtask("Новая подзадача 1.1", "Новое описание подзадачи 1.1", Task.Status.DONE, epic1.getId());
         Subtask subtask2_2 = new Subtask("Новая подзадача 1.2", "Новое описание подзадачи 1.2", Task.Status.IN_PROGRESS, epic1.getId());
         Subtask subtask3_2 = new Subtask("Новая подзадача 2.1", "Новое описание подзадачи 2.1", Task.Status.DONE, epic2.getId());
+        subtask1_2.setId(subtask1.getId());
+        subtask2_2.setId(subtask2.getId());
+        subtask3_2.setId(subtask3.getId());
         manager.updateSubTask(subtask1_2);
         manager.updateSubTask(subtask2_2);
         manager.updateSubTask(subtask3_2);
@@ -67,12 +70,11 @@ public class Main {
         }
 
 
-        manager.deleteTaskById(task2.id);
-        manager.deleteEpicById(epic2.id);
-        manager.deleteSubTaskById(subtask3.id);
+        manager.deleteTaskById(task2.getId());
+        manager.deleteEpicById(epic2.getId());
+        manager.deleteSubTaskById(subtask3.getId());
 
         System.out.println("\nПосле удаления:");
-        System.out.println("Список задач:");
         for (Task task : manager.getAllTasks()) {
             System.out.println(task.toString());
         }

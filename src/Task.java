@@ -1,5 +1,5 @@
 public class Task {
-    protected Integer id;
+    private Integer id;
     protected String name;
     protected String description;
     protected Status status = Status.NEW;
@@ -22,16 +22,6 @@ public class Task {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
-    }
-
 
     public Integer getId() {
         return id;
@@ -47,5 +37,31 @@ public class Task {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return "Task";
+    }
+
+    @Override
+    public String toString() {
+        return getType() + "{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
     }
 }
