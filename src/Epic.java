@@ -45,4 +45,13 @@ public class Epic extends Task {
                 ", status=" + status +
                 '}';
     }
+
+    @Override
+    public Epic copy() {
+        Epic copy = new Epic(this.name, this.description);
+        copy.setId(this.id);
+        copy.status = this.status;
+        // Не копируем subtaskIds, так как они управляются менеджером
+        return copy;
+    }
 }

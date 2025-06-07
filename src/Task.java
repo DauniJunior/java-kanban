@@ -1,5 +1,7 @@
+import java.util.Objects;
+
 public class Task {
-    private Integer id;
+    protected Integer id;
     protected String name;
     protected String description;
     protected Status status = Status.NEW;
@@ -63,5 +65,24 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public Task copy() {
+        Task copy = new Task(this.name, this.description, this.status);
+        copy.setId(this.id); // Сохраняем тот же ID
+        return copy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(id, task.id); // Сравниваем только по id
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id); // Хэш-код тоже зависит только от id
     }
 }

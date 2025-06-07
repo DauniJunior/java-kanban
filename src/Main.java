@@ -3,7 +3,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Поехали!");
-        TaskManager manager = new TaskManager();
+        //TaskManager manager = new TaskManager();
+        TaskManager manager = Managers.getDefault();
         Task task1 = new Task("Задача 1", "Описание задачи 1");
         Task task2 = new Task("Задача 2", "Описание задачи 2");
         manager.addTask(task1);

@@ -29,4 +29,11 @@
                  ", epicId=" + epicId +
                  '}';
      }
+
+     @Override
+     public Subtask copy() {
+         Subtask copy = new Subtask(this.name, this.description, this.status, this.epicId);
+         copy.setId(this.id);
+         return copy;
+     }
 }
