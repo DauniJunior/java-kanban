@@ -30,8 +30,9 @@ public class InMemoryTaskManager implements TaskManager {
         Task task = tasks.get(id);
         if (task != null) {
             historyManager.add(task);
+            return task.copy();
         }
-        return task;
+        return null;
     }
 
     @Override
@@ -51,6 +52,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteTaskById(int id) {
         tasks.remove(id);
+        historyManager.remove(id);
     }
 
     // Методы для эпиков
@@ -70,8 +72,9 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = epics.get(id);
         if (epic != null) {
             historyManager.add(epic);
+            return epic.copy();
         }
-        return epic;
+        return null;
     }
 
     @Override
@@ -97,8 +100,10 @@ public class InMemoryTaskManager implements TaskManager {
             List<Integer> subtaskIdsToRemove = epics.get(id).getSubtaskIds();
             for (Integer subtaskId : subtaskIdsToRemove) {
                 subtasks.remove(subtaskId);
+                historyManager.remove(subtaskId); // Удаляем подзадачи из истории
             }
             epics.remove(id);
+            historyManager.remove(id); // Удаляем эпик из истории
         }
     }
 
@@ -121,8 +126,9 @@ public class InMemoryTaskManager implements TaskManager {
         Subtask subtask = subtasks.get(id);
         if (subtask != null) {
             historyManager.add(subtask);
+            return subtask.copy();
         }
-        return subtask;
+        return null;
     }
 
     @Override
@@ -165,6 +171,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (subtask != null) {
             epics.get(subtask.epicId).removeSubtaskId(id);
             updateEpicStatus(subtask.epicId);
+            historyManager.remove(id); // Удаляем из истории
         }
     }
 
@@ -218,6 +225,18 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
+    }
+
+    public Epic getEpicDirectly(int id) {
+        return epics.get(id); // Возвращает оригинал, не копию
+    }
+
+    public Subtask getSubtaskDirectly(int id) {
+        return subtasks.get(id);
+    }
+
+    public Task getTaskDirectly(int id) {
+        return tasks.get(id);
     }
 
 }

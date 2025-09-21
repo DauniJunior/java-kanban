@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 class ComprehensiveTaskManagerTest {
     private TaskManager manager;
@@ -147,4 +148,68 @@ class ComprehensiveTaskManagerTest {
         task.setName("Modified");
         assertEquals("Task", historyManager.getHistory().get(0).getName());
     }
+
+    @Test
+    void historyShouldNotContainDuplicates() {
+        Task task = new Task("Task", "Desc");
+        int taskId = manager.addTask(task);
+
+        manager.getTaskById(taskId);
+        manager.getTaskById(taskId); // Дубликат
+        manager.getTaskById(taskId); // Дубликат
+
+        assertEquals(1, manager.getHistory().size());
+    }
+
+    @Test
+    void historyShouldMaintainOrder() {
+        Task task1 = new Task("Task1", "Desc");
+        Task task2 = new Task("Task2", "Desc");
+        int id1 = manager.addTask(task1);
+        int id2 = manager.addTask(task2);
+
+        manager.getTaskById(id1);
+        manager.getTaskById(id2);
+        manager.getTaskById(id1); // Повторный просмотр
+
+        List<Task> history = manager.getHistory();
+        assertEquals(2, history.size());
+        assertEquals(id2, history.get(0).getId()); // Первый просмотр
+        assertEquals(id1, history.get(1).getId()); // Последний просмотр
+    }
+
+    @Test
+    void historyShouldBeCleanedOnTaskDeletion() {
+        Task task = new Task("Task", "Desc");
+        int taskId = manager.addTask(task);
+
+        manager.getTaskById(taskId);
+        manager.deleteTaskById(taskId);
+
+        assertTrue(manager.getHistory().isEmpty());
+    }
+
+    // Тесты для целостности данных
+    @Test
+    void shouldRemoveSubtasksWhenEpicDeleted() {
+        Epic epic = new Epic("Epic", "Desc");
+        int epicId = manager.addEpic(epic);
+
+        Subtask subtask = new Subtask("Sub", "Desc", epicId);
+        int subId = manager.addSubTask(subtask);
+
+        manager.deleteEpicById(epicId);
+
+        assertNull(manager.getSubTaskById(subId));
+        assertTrue(manager.getAllSubTasks().isEmpty());
+    }
+
+    @Test
+    void shouldHandleInvalidEpicIdInSubtask() {
+        // Пытаемся создать подзадачу с несуществующим эпиком
+        Subtask invalidSubtask = new Subtask("Invalid", "Desc", 999);
+
+        assertEquals(-1, manager.addSubTask(invalidSubtask));
+    }
+
 }
