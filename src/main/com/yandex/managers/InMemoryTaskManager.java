@@ -1,14 +1,21 @@
+package com.yandex.managers;
+
+import com.yandex.models.Epic;
+import com.yandex.models.Subtask;
+import com.yandex.models.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
+import com.yandex.models.*;
 
 
 public class InMemoryTaskManager implements TaskManager {
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
-    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private Map<Integer, Task> tasks = new HashMap<>();
+    private Map<Integer, Epic> epics = new HashMap<>();
+    private Map<Integer, Subtask> subtasks = new HashMap<>();
     private Integer nextId = 1;
-    //private List<Task> history = new ArrayList<>();
+    //private List<java.yandex.models.Task> history = new ArrayList<>();
     private final HistoryManager historyManager;
 
     public InMemoryTaskManager(HistoryManager historyManager) {

@@ -1,5 +1,12 @@
+package com.yandex.tests;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.yandex.managers.HistoryManager;
+import com.yandex.managers.InMemoryHistoryManager;
+import com.yandex.models.Epic;
+import com.yandex.models.Task;
 import java.util.List;
 
 class HistoryManagerTest {
@@ -19,7 +26,7 @@ class HistoryManagerTest {
         List<Task> history = historyManager.getHistory();
 
         assertEquals(1, history.size());
-        assertEquals(1, history.get(0).getId());
+        Assertions.assertEquals(1, history.get(0).getId());
     }
 
     @Test
@@ -31,7 +38,7 @@ class HistoryManagerTest {
         historyManager.add(task); // Дубликат
         historyManager.add(task); // Дубликат
 
-        assertEquals(1, historyManager.getHistory().size());
+        Assertions.assertEquals(1, historyManager.getHistory().size());
     }
 
     @Test
@@ -42,7 +49,7 @@ class HistoryManagerTest {
         historyManager.add(task);
         historyManager.remove(1);
 
-        assertTrue(historyManager.getHistory().isEmpty());
+        Assertions.assertTrue(historyManager.getHistory().isEmpty());
     }
 
     @Test
@@ -55,19 +62,19 @@ class HistoryManagerTest {
         historyManager.add(task2);
 
         List<Task> history = historyManager.getHistory();
-        assertEquals(1, history.get(0).getId());
-        assertEquals(2, history.get(1).getId());
+        Assertions.assertEquals(1, history.get(0).getId());
+        Assertions.assertEquals(2, history.get(1).getId());
     }
 
     @Test
     void shouldHandleMixedTaskTypes() {
-        Task task = new Task("Task", "Desc");
-        Epic epic = new Epic("Epic", "Desc");
+        Task task = new Task("java.yandex.models.Task", "Desc");
+        Epic epic = new Epic("java.yandex.models.Epic", "Desc");
         task.setId(1); epic.setId(2);
 
         historyManager.add(task);
         historyManager.add(epic);
 
-        assertEquals(2, historyManager.getHistory().size());
+        Assertions.assertEquals(2, historyManager.getHistory().size());
     }
 }

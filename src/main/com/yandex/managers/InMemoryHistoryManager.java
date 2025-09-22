@@ -1,7 +1,11 @@
+package com.yandex.managers;
+
+import com.yandex.models.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.yandex.models.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private final Map<Integer, Node> nodeMap = new HashMap<>();

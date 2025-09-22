@@ -1,4 +1,10 @@
+package com.yandex.managers;
+
+import com.yandex.models.Epic;
+import com.yandex.models.Subtask;
+import com.yandex.models.Task;
 import java.util.List;
+import com.yandex.models.*;
 
 public interface TaskManager {
     // Методы для задач
