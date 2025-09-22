@@ -1,5 +1,9 @@
+package com.yandex.models;
+
+
 import java.util.List;
 import java.util.ArrayList;
+import com.yandex.managers.*;
 
 public class Epic extends Task {
     private List<Integer> subtaskIds = new ArrayList<>();
@@ -32,7 +36,7 @@ public class Epic extends Task {
 
     @Override
     public String getType() {
-        return "Epic";
+        return "java.yandex.models.Epic";
     }
 
 

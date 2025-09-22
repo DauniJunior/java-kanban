@@ -1,9 +1,14 @@
+package com.yandex.models;
+import com.yandex.managers.Managers;
+import com.yandex.managers.TaskManager;
+import com.yandex.managers.*;
+
 public class Main {
 
 
     public static void main(String[] args) {
         System.out.println("Поехали!");
-        //TaskManager manager = new TaskManager();
+        //java.yandex.managers.TaskManager manager = new java.yandex.managers.TaskManager();
         TaskManager manager = Managers.getDefault();
         Task task1 = new Task("Задача 1", "Описание задачи 1");
         Task task2 = new Task("Задача 2", "Описание задачи 2");

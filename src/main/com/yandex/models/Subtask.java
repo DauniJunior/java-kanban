@@ -1,5 +1,8 @@
- public class Subtask extends Task {
-    protected final int epicId;
+package com.yandex.models;
+import com.yandex.managers.*;
+
+public class Subtask extends Task {
+    public final int epicId;
 
 
     public  Subtask(String name, String description, int epicId) {
@@ -15,12 +18,14 @@
     }
 
 
-    public int getEpicId() { return epicId; }
+    public int getEpicId() {
+        return epicId;
+    }
 
 
      @Override
      public String getType() {
-         return "Subtask";
+         return "java.yandex.models.Subtask";
      }
 
      @Override

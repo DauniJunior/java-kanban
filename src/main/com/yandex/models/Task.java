@@ -1,10 +1,13 @@
+package com.yandex.models;
+
 import java.util.Objects;
+import com.yandex.managers.*;
 
 public class Task {
     protected Integer id;
     protected String name;
     protected String description;
-    protected Status status = Status.NEW;
+    public Status status = Status.NEW;
 
 
     public enum Status {
@@ -54,7 +57,7 @@ public class Task {
     }
 
     public String getType() {
-        return "Task";
+        return "java.yandex.models.Task";
     }
 
     @Override
